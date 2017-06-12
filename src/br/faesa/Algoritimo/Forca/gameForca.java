@@ -43,7 +43,7 @@ public class gameForca {
 				menuGame();
 			}
 	}}
-	public static void contNoJogo() {
+	public static void contNoJogo() { // Obsoleto Tocado pelo Menu..
 		System.out.println("Quer Continuar no Jogo!..[S] sim - [N] não");
 		String cont = scann.next();
 		if (cont.equalsIgnoreCase("s")) {
@@ -68,7 +68,7 @@ public class gameForca {
 		System.out.println("Vamos lá, Digite uma Letra:");
 		capTura = scann.nextLine().toUpperCase();
 		if (capTura.length() > 1) {
-			System.out.print("Você Digitou Mais que Uma Letra Ou nada! :( ");
+			System.out.print("Você Digitou Mais que Uma Letra! :( ");
 			capTura = scann.next();
 		} else if (capTura.length() == 0) {
 			JOptionPane.showMessageDialog(null,
