@@ -11,7 +11,10 @@ public class gameForca {
 	static String palavra;
 	static String capTura;
 	private static Scanner scann;
+	private static String nome;
 	public static void main(String args[]) throws Exception {
+		nomeGamer();
+		limparConfigDefault();
 		montarTelaInicio();
 		telaInicio();
 	}
@@ -46,6 +49,7 @@ public class gameForca {
 		String cont = scann.next();
 		if (cont.equalsIgnoreCase("s")) {
 			System.out.println("Vamos recomeçar...");
+			nomeGamer();
 			montarTelaInicio();
 		} else if (cont.equalsIgnoreCase("n")) {
 			System.out.println("ok encerrado game ... ");
@@ -102,6 +106,10 @@ public class gameForca {
 			System.out.println("Letras Erradas :  : " + guardPalavErrad + " : : ");
 		}
 	}
+	public static void nomeGamer(){
+		nome = JOptionPane.showInputDialog(null, "Ola Bem Vido! Game da Forca. Digite Seu nome..:");
+		
+	}
 	public static void montarTelaInicio() {
 		System.out.println("_______________________________________________________________________");
 		System.out.println("|                                                                      |");
@@ -124,13 +132,14 @@ public class gameForca {
 		System.out.println("               **     **     **  **  ** **    **    **      **          ********");
 		System.out.println("               **     *       ****   **  **    *** **        **         ********");
 		System.out.println("");
+		System.out.println("      Seja bem Vindo "+nome+" Vamos Jogar");
 		System.out.println("_____Começou____você tem 7 Chances para errar...");
 		telaInicio();
 	}
 	public static void MontForca() {
 		switch (forCa_Mont) {
 		case 0:
-			System.out.println("________________**");
+			System.out.println("_Você Foi Enforcado_**");
 			System.out.println("  | ___            **");
 			System.out.println("  |(-_-)           **");
 			System.out.println("  |--º             **");
