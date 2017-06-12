@@ -1,6 +1,7 @@
 package br.faesa.Algoritimo.Forca;
 import java.util.Random;
 import java.util.Scanner;
+
 import javax.swing.JOptionPane;
 public class gameForca {
 	static StringBuilder guardPalavErrad = new StringBuilder();
@@ -12,14 +13,16 @@ public class gameForca {
 	static String capTura;
 	private static Scanner scann;
 	private static String nome;
+	private static String menu;
+	private static String newPalavra;
+	private static String[] bancoDPalavras = { "PAULO", "BRASIL", "MORCEGO", "ALGORITIMO", "JAVA", "UNIVERSO", "SAIDEIRA",
+	"ADVINHAR" };
 	public static void main(String args[]) throws Exception {
-		nomeGamer();
-		limparConfigDefault();
-		montarTelaInicio();
-		telaInicio();
+		menuGame();
+		
 	}
 	public static void telaInicio() {
-		palavra = gerarPalavra();
+		palavra = getGerarPalavra();
 		System.out.println("Dica .... A palavra sortiada tem:  " + palavra.length() + " Letras:!");
 		for (int i = palavra.length(); i > 0; i--) {
 			sepLetraSeparador = sepLetraSeparador.append("-");
@@ -35,13 +38,11 @@ public class gameForca {
 				perDeu = true;
 				System.out.println("Ixi não deu Certo, mas podemos tentar de novo na Proxima..");
 				System.out.println(" a palavra sorteada era .. >  " + palavra);
-				limparConfigDefault();
-				contNoJogo();
+				menuGame();
 			} else if (palavra.equals(sepLetraSeparador.toString())) {
 				perDeu = true;
 				System.out.println("Parabens você Acertou: Hurruuu... Noss você e Bom");
-				limparConfigDefault();
-				contNoJogo();
+				menuGame();
 			}
 	}}
 	public static void contNoJogo() {
@@ -49,8 +50,7 @@ public class gameForca {
 		String cont = scann.next();
 		if (cont.equalsIgnoreCase("s")) {
 			System.out.println("Vamos recomeçar...");
-			nomeGamer();
-			montarTelaInicio();
+			menuGame();
 		} else if (cont.equalsIgnoreCase("n")) {
 			System.out.println("ok encerrado game ... ");
 			System.exit(0);
@@ -62,14 +62,10 @@ public class gameForca {
 		capTura = "";
 		sepLetraSeparador.delete(0, sepLetraSeparador.length()); // inicia na posição 0 e vai ate a posição da ultima letra.
 		guardPalavErrad.delete(0, guardPalavErrad.length()); // inicia na posição 0 e vai ate a posição da ultima letra.usar outro medodo e ruim
+		montarTelaInicio();
+		
 	}
-	public static String gerarPalavra() {
-		String palavra;
-		String[] bancoDPalavras = { "PAULO", "BRASIL", "MORCEGO", "ALGORITIMO", "JAVA", "UNIVERSO", "SAIDEIRA",
-				"ADVINHAR" };
-		palavra = bancoDPalavras[ranDomm.nextInt(bancoDPalavras.length)];
-		return palavra;
-	}
+	
 	public static void getInicio() {
 		scann = new Scanner(System.in);
 		System.out.println("");
@@ -106,9 +102,48 @@ public class gameForca {
 			System.out.println("Letras Erradas :  : " + guardPalavErrad + " : : ");
 		}
 	}
+	public static void menuGame(){
+		menu = JOptionPane.showInputDialog(null, "Ola Bem Vido! Game da Forca"+"\n"+"1)- Jogar:"+"\n"+"2)- Inserir nova palavra:"+"\n"+"3)- Sair");
+		if(menu.equals("1")){
+			limparConfigDefault();
+			
+		}else if(menu.equals("2")){
+			newPalavra = JOptionPane.showInputDialog(null,"Digite uma Palavra nova");
+			setNewPalavra(newPalavra);
+		}else if(menu.equals("3")){
+			System.exit(0);
+		}
+		JOptionPane.showConfirmDialog(null,"Em você não digitou uma opção correta, Vamos Novamente..");
+		menuGame();
+	}
 	public static void nomeGamer(){
-		nome = JOptionPane.showInputDialog(null, "Ola Bem Vido! Game da Forca. Digite Seu nome..:");
+		nome = JOptionPane.showInputDialog(null,"Ola Bem Vido! Game da Forca. Digite Seu nome..:");
+		setNome(nome);
+	}
+	public static String getGerarPalavra() {
+		String palavra;
+		palavra = bancoDPalavras[ranDomm.nextInt(bancoDPalavras.length)];
+		return palavra;
+	}
+	public static String getPalavra() {
+		return palavra;
+	}
+	public static void setPalavra(String palavra) {
 		
+		gameForca.palavra = palavra;
+	}
+	public static String getNome() {
+		return nome;
+	}
+	public static void setNome(String nome) {
+		gameForca.nome = nome;
+	}
+	public static String getNewPalavra() {
+		return newPalavra;
+	}
+	public static void setNewPalavra(String newPalavra) {
+		JOptionPane.showMessageDialog(null,"Sua Palavra foi adicionada..");
+	menuGame();
 	}
 	public static void montarTelaInicio() {
 		System.out.println("_______________________________________________________________________");
@@ -173,21 +208,6 @@ public class gameForca {
 			System.out.println("    ___            **");
 			System.out.println("   (-_-)           **");
 			System.out.println("                   **");
-			System.out.println("   / | \\           **");
-			System.out.println("  /  |  \\          **");
-			System.out.println(" /   |   \\         **");
-			System.out.println("     |             **");
-			System.out.println("     |             **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                      ____Nada Bom Ta Ficando Feio Negocío -Tent: 06");
-			break;
-		case 3:
-			System.out.println("________________**");
-			System.out.println("    ___            **");
-			System.out.println("   (-_-)           **");
-			System.out.println("                   **");
 			System.out.println("  /  |             **");
 			System.out.println(" /   |             **");
 			System.out.println("/    |             **");
@@ -198,6 +218,22 @@ public class gameForca {
 			System.out.println("                   **");
 			System.out.println("                      ____Nada Bom Ta Ficando Feio Negocío -Tent: 05");
 			break;
+		case 3:
+			System.out.println("________________**");
+			System.out.println("    ___            **");
+			System.out.println("   (-_-)           **");
+			System.out.println("                   **");
+			System.out.println("   / | \\           **");
+			System.out.println("  /  |  \\          **");
+			System.out.println(" /   |   \\         **");
+			System.out.println("     |             **");
+			System.out.println("     |             **");
+			System.out.println("                   **");
+			System.out.println("                   **");
+			System.out.println("                   **");
+			System.out.println("                      ____Nada Bom Ta Ficando Feio Negocío -Tent: 06");
+			break;
+		
 		case 4:
 			System.out.println("________________**");
 			System.out.println("    ___            **");
