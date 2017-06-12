@@ -1,7 +1,6 @@
 package br.faesa.Algoritimo.Forca;
 import java.util.Random;
 import java.util.Scanner;
-
 import javax.swing.JOptionPane;
 public class gameForca {
 	static StringBuilder guardPalavErrad = new StringBuilder();
@@ -18,8 +17,7 @@ public class gameForca {
 	private static String[] bancoDPalavras = { "PAULO", "BRASIL", "MORCEGO", "ALGORITIMO", "JAVA", "UNIVERSO", "SAIDEIRA",
 	"ADVINHAR" };
 	public static void main(String args[]) throws Exception {
-		menuGame();
-		
+		menuGame();	
 	}
 	public static void telaInicio() {
 		palavra = getGerarPalavra();
@@ -45,7 +43,7 @@ public class gameForca {
 				menuGame();
 			}
 	}}
-	public static void contNoJogo() { //Metodo Obsoleto, esta aqui para servir didático.
+	public static void contNoJogo() {
 		System.out.println("Quer Continuar no Jogo!..[S] sim - [N] não");
 		String cont = scann.next();
 		if (cont.equalsIgnoreCase("s")) {
@@ -57,15 +55,13 @@ public class gameForca {
 	}}
 	public static void limparConfigDefault() {
 		forCa_Mont = 8;// aqui. iniciar o metodo, de limpesa zerando todos os metodos a cima com alguma coisa dentro. e dando valores Default.. a eles
-		perDeu = false; // volta para falso, para rodar o game, sem perder no inicio
-		palavra = ""; // zera palavra sortiada
-		capTura = ""; // zera os '-' para não ficar por cima do outro novo..
+		perDeu = false;
+		palavra = "";
+		capTura = "";
 		sepLetraSeparador.delete(0, sepLetraSeparador.length()); // inicia na posição 0 e vai ate a posição da ultima letra.
 		guardPalavErrad.delete(0, guardPalavErrad.length()); // inicia na posição 0 e vai ate a posição da ultima letra.usar outro medodo e ruim
-		montarTelaInicio(); //lança a tela do game novamente, a Principal
-		
+		montarTelaInicio();
 	}
-	
 	public static void getInicio() {
 		scann = new Scanner(System.in);
 		System.out.println("");
@@ -100,13 +96,11 @@ public class gameForca {
 			MontForca();
 			System.out.println("Você acertou Huruu:   " + sepLetraSeparador);
 			System.out.println("Letras Erradas :  : " + guardPalavErrad + " : : ");
-		}
-	}
+	}}
 	public static void menuGame(){
 		menu = JOptionPane.showInputDialog(null, "Ola Bem Vido! Game da Forca"+"\n"+"1)- Jogar:"+"\n"+"2)- Inserir nova palavra:"+"\n"+"3)- Sair");
 		if(menu.equals("1")){
-			limparConfigDefault();
-			
+			limparConfigDefault();		
 		}else if(menu.equals("2")){
 			newPalavra = JOptionPane.showInputDialog(null,"Digite uma Palavra nova");
 			setNewPalavra(newPalavra);
@@ -118,33 +112,24 @@ public class gameForca {
 	}
 	public static void nomeGamer(){
 		nome = JOptionPane.showInputDialog(null,"Ola Bem Vido! Game da Forca. Digite Seu nome..:");
-		setNome(nome);
-	}
+		setNome(nome);    }
 	public static String getGerarPalavra() {
 		String palavra;
 		palavra = bancoDPalavras[ranDomm.nextInt(bancoDPalavras.length)];
-		return palavra;
-	}
+		return palavra;    }
 	public static String getPalavra() {
-		return palavra;
-	}
+		return palavra;    }
 	public static void setPalavra(String palavra) {
-		
-		gameForca.palavra = palavra;
-	}
+		gameForca.palavra = palavra;}
 	public static String getNome() {
-		return nome;
-	}
+		return nome;       }
 	public static void setNome(String nome) {
-		gameForca.nome = nome;
-	}
+		gameForca.nome = nome;}
 	public static String getNewPalavra() {
-		return newPalavra;
-	}
+		return newPalavra; }
 	public static void setNewPalavra(String newPalavra) {
 		JOptionPane.showMessageDialog(null,"Sua Palavra foi adicionada..");
-	menuGame();
-	}
+	menuGame();                }
 	public static void montarTelaInicio() {
 		System.out.println("_______________________________________________________________________");
 		System.out.println("|                                                                      |");
@@ -293,5 +278,4 @@ public class gameForca {
 			System.out.println("                 **");
 			System.out.println("                 **");
 			System.out.println("                 _____Nada bom Começou-Tent: 01");
-		}
-}}
+}}}
