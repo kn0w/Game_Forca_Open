@@ -45,7 +45,7 @@ public class gameForca {
 				menuGame();
 			}
 	}}
-	public static void contNoJogo() {
+	public static void contNoJogo() { //Metodo Obsoleto, esta aqui para servir didático.
 		System.out.println("Quer Continuar no Jogo!..[S] sim - [N] não");
 		String cont = scann.next();
 		if (cont.equalsIgnoreCase("s")) {
@@ -57,12 +57,12 @@ public class gameForca {
 	}}
 	public static void limparConfigDefault() {
 		forCa_Mont = 8;// aqui. iniciar o metodo, de limpesa zerando todos os metodos a cima com alguma coisa dentro. e dando valores Default.. a eles
-		perDeu = false;
-		palavra = "";
-		capTura = "";
+		perDeu = false; // volta para falso, para rodar o game, sem perder no inicio
+		palavra = ""; // zera palavra sortiada
+		capTura = ""; // zera os '-' para não ficar por cima do outro novo..
 		sepLetraSeparador.delete(0, sepLetraSeparador.length()); // inicia na posição 0 e vai ate a posição da ultima letra.
 		guardPalavErrad.delete(0, guardPalavErrad.length()); // inicia na posição 0 e vai ate a posição da ultima letra.usar outro medodo e ruim
-		montarTelaInicio();
+		montarTelaInicio(); //lança a tela do game novamente, a Principal
 		
 	}
 	
