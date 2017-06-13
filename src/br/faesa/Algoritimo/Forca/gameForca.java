@@ -18,6 +18,7 @@ public class gameForca {
 	private static String[] bancoDP = { "PAULO", "BRASIL", "MORCEGO", "ALGORITIMO", "JAVA", "UNIVERSO", "SAIDEIRA","ADVINHAR","UNIVERSIDADE","LIVRE" };
 	private static ArrayList<String> bancoDPalavras = new ArrayList<String>();
 		public static void main(String args[]) throws Exception {
+			criaListaNome();
 		menuGame();	
 		}
 	public static void criaListaNome(){
@@ -25,7 +26,6 @@ public class gameForca {
 		for(i = 0; i<bancoDP.length;i++){
 			bancoDPalavras.add(bancoDP[i]);
 		}
-		palavra = bancoDPalavras.get(ranDomm.nextInt(bancoDPalavras.size()));
 	}
 	public static void telaInicio() {
 		palavra = getGerarPalavra();
@@ -65,7 +65,7 @@ public class gameForca {
 		System.out.println("");
 		System.out.println("Vamos lá, Digite uma Letra:");
 		capTura = scann.nextLine().toUpperCase();
-		if (capTura.length() > 1) {
+		if (capTura.length() > 1 ||Character.isDigit(capTura.length())) {
 			System.out.print("Você Digitou Mais que Uma Letra! :( ");
 			capTura = scann.next();
 		} else if (capTura.length() == 0) {
@@ -79,7 +79,7 @@ public class gameForca {
 		if (!palavra.contains(capTura)) {
 			System.out.println("Ops.. a Palavra não tem esta Letra >  " + capTura);
 			guardPalavErrad = guardPalavErrad.append(capTura);
-			forCa_Mont = forCa_Mont - 1;
+			forCa_Mont -=1;
 			MontForca();
 			System.out.println("Acertos :" + sepLetraSeparador);
 			System.out.println("Você Palpitou :( Errado:  " + guardPalavErrad);
@@ -100,7 +100,7 @@ public class gameForca {
 		if(menu.equals("1")){
 			limparConfigDefault();		
 		}else if(menu.equals("2")){
-			newPalavra = JOptionPane.showInputDialog(null,"Digite uma Palavra nova");
+			newPalavra=JOptionPane.showInputDialog(null,"Digite uma Palavra nova");
 			setNewPalavra(newPalavra);
 		}else if(menu.equals("3")){
 			System.exit(0);
@@ -114,7 +114,7 @@ public class gameForca {
 		setNome(nome);
 	}
 	public static String getGerarPalavra() {
-		criaListaNome();
+		palavra = bancoDPalavras.get(ranDomm.nextInt(bancoDPalavras.size()));
 		return palavra;
 	}
 	public static void setNewPalavra(String newPalavra) { // Metodo Adicionar
@@ -122,14 +122,12 @@ public class gameForca {
 		for (int i = 0; i < newPalavra.length(); i++) {
 			if (Character.isDigit(newPalavra.charAt(i))) {
 				JOptionPane.showMessageDialog(null, "Esta Palavra contem Números: não e permitido!");
-			}
-			if (newPalavra.trim().length() == 0 || newPalavra.equals(null)) {
+			}else if (newPalavra.trim().length() == 0 || newPalavra.equals(null)) {
 				JOptionPane.showMessageDialog(null, "Esta em branco vamos tentar novamente");
 				menuGame();
 			} else {
 				bancoDPalavras.add(newPalavra);
-				System.out.println(bancoDPalavras.get(i));
-				JOptionPane.showMessageDialog(null, "Sua Palavra foi adicionada: " + bancoDPalavras.get(i));
+				JOptionPane.showMessageDialog(null, "Sua Palavra foi adicionada: " +newPalavra);
 				menuGame();
 			}
 	}}
@@ -162,7 +160,7 @@ public class gameForca {
 		System.out.println("               **     **     **  **  ** **    **    **      **          ********");
 		System.out.println("               **     *       ****   **  **    *** **        **         ********");
 		System.out.println("");
-		System.out.println("      Seja bem Vindo "+nome+" Vamos Jogar");
+		System.out.println("      Seja bem Vindo "+getNome()+" Vamos Jogar");
 		System.out.println("_____Começou____você tem 7 Chances para errar...");
 		telaInicio();
 	}
