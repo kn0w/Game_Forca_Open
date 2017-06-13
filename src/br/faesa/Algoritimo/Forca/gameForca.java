@@ -1,4 +1,5 @@
 package br.faesa.Algoritimo.Forca;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
@@ -14,10 +15,17 @@ public class gameForca {
 	private static String nome;
 	private static String menu;
 	private static String newPalavra;
-	private static String[] bancoDPalavras = { "PAULO", "BRASIL", "MORCEGO", "ALGORITIMO", "JAVA", "UNIVERSO", "SAIDEIRA",
-	"ADVINHAR" };
-	public static void main(String args[]) throws Exception {
+	private static String[] bancoDP = { "PAULO", "BRASIL", "MORCEGO", "ALGORITIMO", "JAVA", "UNIVERSO", "SAIDEIRA","ADVINHAR","UNIVERSIDADE","LIVRE" };
+	private static ArrayList<String> bancoDPalavras = new ArrayList<String>();
+		public static void main(String args[]) throws Exception {
 		menuGame();	
+		}
+	public static void criaListaNome(){
+		int i;
+		for(i = 0; i<bancoDP.length;i++){
+			bancoDPalavras.add(bancoDP[i]);
+		}
+		palavra = bancoDPalavras.get(ranDomm.nextInt(bancoDPalavras.size()));
 	}
 	public static void telaInicio() {
 		palavra = getGerarPalavra();
@@ -43,23 +51,13 @@ public class gameForca {
 				menuGame();
 			}
 	}}
-	public static void contNoJogo() { // Obsoleto Tocado pelo Menu..
-		System.out.println("Quer Continuar no Jogo!..[S] sim - [N] não");
-		String cont = scann.next();
-		if (cont.equalsIgnoreCase("s")) {
-			System.out.println("Vamos recomeçar...");
-			menuGame();
-		} else if (cont.equalsIgnoreCase("n")) {
-			System.out.println("ok encerrado game ... ");
-			System.exit(0);
-	}}
-	public static void limparConfigDefault() {
-		forCa_Mont = 8;// aqui. iniciar o metodo, de limpesa zerando todos os metodos a cima com alguma coisa dentro. e dando valores Default.. a eles
+	public static void limparConfigDefault() { /* aqui. iniciar o metodo, de limpesa zerando todos os metodos a cima com alguma coisa dentro. e dando valores Default.. a eles*/
+		forCa_Mont = 8;
 		perDeu = false;
 		palavra = "";
 		capTura = "";
-		sepLetraSeparador.delete(0, sepLetraSeparador.length()); // inicia na posição 0 e vai ate a posição da ultima letra.
-		guardPalavErrad.delete(0, guardPalavErrad.length()); // inicia na posição 0 e vai ate a posição da ultima letra.usar outro medodo e ruim
+		sepLetraSeparador.delete(0, sepLetraSeparador.length()); 
+		guardPalavErrad.delete(0, guardPalavErrad.length()); 
 		montarTelaInicio();
 	}
 	public static void getInicio() {
@@ -110,27 +108,39 @@ public class gameForca {
 		JOptionPane.showConfirmDialog(null,"Em você não digitou uma opção correta, Vamos Novamente..");
 		menuGame();
 	}
-	public static void nomeGamer(){
-		nome = JOptionPane.showInputDialog(null,"Ola Bem Vido! Game da Forca. Digite Seu nome..:");
-		setNome(nome);    }
+
+	public static void nomeGamer() {
+		nome = JOptionPane.showInputDialog(null, "Ola Bem Vido! Game da Forca. Digite Seu nome..:");
+		setNome(nome);
+	}
 	public static String getGerarPalavra() {
-		String palavra;
-		palavra = bancoDPalavras[ranDomm.nextInt(bancoDPalavras.length)];
-		return palavra;    }
-	public static String getPalavra() {
-		return palavra;    }
-	public static void setPalavra(String palavra) {
-		gameForca.palavra = palavra;}
+		criaListaNome();
+		return palavra;
+	}
+	public static void setNewPalavra(String newPalavra) { // Metodo Adicionar
+															// Novo Nome ...
+		for (int i = 0; i < newPalavra.length(); i++) {
+			if (Character.isDigit(newPalavra.charAt(i))) {
+				JOptionPane.showMessageDialog(null, "Esta Palavra contem Números: não e permitido!");
+			}
+			if (newPalavra.trim().length() == 0 || newPalavra.equals(null)) {
+				JOptionPane.showMessageDialog(null, "Esta em branco vamos tentar novamente");
+				menuGame();
+			} else {
+				bancoDPalavras.add(newPalavra);
+				System.out.println(bancoDPalavras.get(i));
+				JOptionPane.showMessageDialog(null, "Sua Palavra foi adicionada: " + bancoDPalavras.get(i));
+				menuGame();
+			}
+	}}
 	public static String getNome() {
-		return nome;       }
+		return nome;
+	}
 	public static void setNome(String nome) {
-		gameForca.nome = nome;}
-	public static String getNewPalavra() {
-		return newPalavra; }
-	public static void setNewPalavra(String newPalavra) {
-		JOptionPane.showMessageDialog(null,"Sua Palavra foi adicionada..");
-	menuGame();                }
+		gameForca.nome = nome;
+	}
 	public static void montarTelaInicio() {
+		nomeGamer();
 		System.out.println("_______________________________________________________________________");
 		System.out.println("|                                                                      |");
 		System.out.println("|" + "  :::: Ola.. Bem vindo ao Game Jogo da Forca.Algoritimos I ::::" + "       |");
@@ -193,9 +203,9 @@ public class gameForca {
 			System.out.println("    ___            **");
 			System.out.println("   (-_-)           **");
 			System.out.println("                   **");
-			System.out.println("  /  |             **");
-			System.out.println(" /   |             **");
-			System.out.println("/    |             **");
+			System.out.println("  /  | \\           **");
+			System.out.println(" /   |  \\          **");
+			System.out.println("/    |   \\         **");
 			System.out.println("     |             **");
 			System.out.println("     |             **");
 			System.out.println("                   **");
@@ -208,9 +218,9 @@ public class gameForca {
 			System.out.println("    ___            **");
 			System.out.println("   (-_-)           **");
 			System.out.println("                   **");
-			System.out.println("   / | \\           **");
-			System.out.println("  /  |  \\          **");
-			System.out.println(" /   |   \\         **");
+			System.out.println("     | \\           **");
+			System.out.println("     |  \\          **");
+			System.out.println("     |   \\         **");
 			System.out.println("     |             **");
 			System.out.println("     |             **");
 			System.out.println("                   **");
