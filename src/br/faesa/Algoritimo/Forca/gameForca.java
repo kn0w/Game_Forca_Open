@@ -1,11 +1,15 @@
 package br.faesa.Algoritimo.Forca;
+import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
 import javax.swing.JOptionPane;
+
+import org.omg.CORBA.NO_MEMORY;
 public class gameForca {
 	static StringBuilder guardPalavErrad = new StringBuilder();
-	static int forCa_Mont = 8;
+	static int forCa_Mont = 7;
 	static Random ranDomm = new Random();
 	static boolean perDeu = false;
 	static StringBuilder sepLetraSeparador = new StringBuilder();
@@ -15,7 +19,8 @@ public class gameForca {
 	private static String nome;
 	private static String menu;
 	private static String newPalavra;
-	private static String[] bancoDP = { "PAULO", "BRASIL", "MORCEGO", "ALGORITIMO", "JAVA", "UNIVERSO", "SAIDEIRA","ADVINHAR","UNIVERSIDADE","LIVRE" };
+	private static String[] bancoDP = { "PAULO", "BRASIL", "MORCEGO", "ALGORITIMO", "JAVA", "UNIVERSO", "SAIDEIRA","ADVINHAR","UNIVERSIDADE","LIVRE","PROGRAMA"
+	,"MARTELO","UVA","HENDRIX","MOREIRA","ECLIPSE","LINUX","WINDOWS","APLICATIVO","WEB"};
 	private static ArrayList<String> bancoDPalavras = new ArrayList<String>();
 		public static void main(String args[]) throws Exception {
 			criaListaNome();
@@ -29,7 +34,7 @@ public class gameForca {
 	}
 	public static void telaInicio() {
 		palavra = getGerarPalavra();
-		System.out.println("Dica .... A palavra sortiada tem:  " + palavra.length() + " Letras:!");
+		System.out.println("Dica .... A palavra sorteada tem:  " + palavra.length() + " Letras:!");
 		for (int i = palavra.length(); i > 0; i--) {
 			sepLetraSeparador = sepLetraSeparador.append("-");
 		}
@@ -52,7 +57,7 @@ public class gameForca {
 			}
 	}}
 	public static void limparConfigDefault() { /* aqui. iniciar o metodo, de limpesa zerando todos os metodos a cima com alguma coisa dentro. e dando valores Default.. a eles*/
-		forCa_Mont = 8;
+		forCa_Mont = 7;
 		perDeu = false;
 		palavra = "";
 		capTura = "";
@@ -66,23 +71,23 @@ public class gameForca {
 		System.out.println("Vamos lá, Digite uma Letra:");
 		capTura = scann.nextLine().toUpperCase();
 		if (capTura.length() > 1 ||Character.isDigit(capTura.length())) {
-			System.out.print("Você Digitou Mais que Uma Letra! :( ");
+			System.out.println("Você Digitou Mais que Uma Letra! :( ");
 			capTura = scann.next();
-		} else if (capTura.length() == 0) {
+		} else if (capTura.length() == 0||Character.isDigit(capTura.charAt(0))) {
 			JOptionPane.showMessageDialog(null,
 					"Você não digitou uma Letra, ou esta vazio" + "\n" + "Tente Novamente" + "\n" + "Letra ok !");
 			capTura = scann.next();
 		} else {
-			System.out.println("Oba!! Uma das Letras e esta: " + capTura);
+			System.out.println("Letra Digitada: " + capTura);
 	}}
 	public static void checarPalavra() {
 		if (!palavra.contains(capTura)) {
+			forCa_Mont =forCa_Mont-1;
 			System.out.println("Ops.. a Palavra não tem esta Letra >  " + capTura);
 			guardPalavErrad = guardPalavErrad.append(capTura);
-			forCa_Mont -=1;
 			MontForca();
 			System.out.println("Acertos :" + sepLetraSeparador);
-			System.out.println("Você Palpitou :( Errado:  " + guardPalavErrad);
+			System.out.println("Palpite Errados >> :( " + guardPalavErrad+" )");
 		} else {
 			System.out.println("Que Bom.. é isto ai ..");
 			for (int i = 0; i < palavra.length(); i++) {
@@ -93,10 +98,11 @@ public class gameForca {
 			System.out.println("::::::::::::::::::::::::::");
 			MontForca();
 			System.out.println("Você acertou Huruu:   " + sepLetraSeparador);
-			System.out.println("Letras Erradas :  : " + guardPalavErrad + " : : ");
+			System.out.println("Palpites Errados :( " + guardPalavErrad+" )");
 	}}
 	public static void menuGame(){
-		menu = JOptionPane.showInputDialog(null, "Ola Bem Vido! Game da Forca"+"\n"+"1)- Jogar:"+"\n"+"2)- Inserir nova palavra:"+"\n"+"3)- Sair");
+		String tile="---game Forca---";
+		menu = JOptionPane.showInputDialog(null, "Ola Bem Vido! Game da Forca"+"\n"+"1)- Jogar:"+"\n"+"2)- Inserir nova palavra:"+"\n"+"3)- Sair",tile,0);
 		if(menu.equals("1")){
 			limparConfigDefault();		
 		}else if(menu.equals("2")){
@@ -104,21 +110,39 @@ public class gameForca {
 			setNewPalavra(newPalavra);
 		}else if(menu.equals("3")){
 			System.exit(0);
-		}
+		}	
 		JOptionPane.showConfirmDialog(null,"Em você não digitou uma opção correta, Vamos Novamente..");
 		menuGame();
 	}
-
 	public static void nomeGamer() {
-		nome = JOptionPane.showInputDialog(null, "Ola Bem Vido! Game da Forca. Digite Seu nome..:");
-		setNome(nome);
-	}
+		String[] expec={"!","#","$","%","¨","&","*","(",")","-","_","+","=","§","¬","°","/","?","}","{","º","ª"};
+		nome = JOptionPane.showInputDialog(null, "Ola Bem Vido! Game da Forca. Digite Seu nome..:","---Game Forca---",3);
+		for(int i = 0 ; i<nome.length();i++){
+			if(Character.isDigit(nome.charAt(i))){
+				JOptionPane.showMessageDialog(null,"Você digitou Nº, não um Nome:",JOptionPane.ICON_PROPERTY,0);
+				System.out.println("você digitou um numero: ");
+				nomeGamer();
+				break;
+			}/*else if(Character.isDigit(nome.charAt(i)==Character.isDigit(expec[i].toCharArray()))){
+				JOptionPane.showMessageDialog(null, "Você digitou algum caracter especial não pode: ");
+				nomeGamer();*/
+			else if(nome.equals("")){
+				JOptionPane.showMessageDialog(null, "você não digitou nada mesmo assim vamos iniciar o game, afinal de contras ninguem e obrigado.. :)");
+				setNome(nome);
+			}
+	}}
 	public static String getGerarPalavra() {
 		palavra = bancoDPalavras.get(ranDomm.nextInt(bancoDPalavras.size()));
 		return palavra;
 	}
-	public static void setNewPalavra(String newPalavra) { // Metodo Adicionar
-															// Novo Nome ...
+	public static void setNewPalavra(String newPalavra) { // Metodo Adicionar	
+		for(int i = 0 ; i<newPalavra.length();i++){
+			if(Character.isDigit(newPalavra.charAt(i))){
+				JOptionPane.showMessageDialog(null,"Você digitou Nº, não um Nome:",JOptionPane.ICON_PROPERTY,0);
+				System.out.println("você digitou um numero: ");
+				menuGame();
+				break;
+			}}// Novo Nome ...
 		for (int i = 0; i < newPalavra.length(); i++) {
 			if (Character.isDigit(newPalavra.charAt(i))) {
 				JOptionPane.showMessageDialog(null, "Esta Palavra contem Números: não e permitido!");
@@ -160,130 +184,119 @@ public class gameForca {
 		System.out.println("               **     **     **  **  ** **    **    **      **          ********");
 		System.out.println("               **     *       ****   **  **    *** **        **         ********");
 		System.out.println("");
-		System.out.println("      Seja bem Vindo "+getNome()+" Vamos Jogar");
+		System.out.println("      Seja bem Vindo ''"+getNome()+"'' Vamos Jogar");
 		System.out.println("_____Começou____você tem 7 Chances para errar...");
 		telaInicio();
 	}
 	public static void MontForca() {
 		switch (forCa_Mont) {
 		case 0:
-			System.out.println("_Você Foi Enforcado_**");
-			System.out.println("  | ___            **");
-			System.out.println("  |(-_-)           **");
-			System.out.println("  |--º             **");
-			System.out.println("    /|\\            **");
-			System.out.println("   / | \\           **");
-			System.out.println("  /  |  \\          **");
-			System.out.println("     |             **");
-			System.out.println("     |             **");
-			System.out.println("    / \\            **");
-			System.out.println("   /   \\           **");
-			System.out.println("  /     \\          **");
-			System.out.println("!!!!!!!Game Over!!!!!!");
+			System.out.println("     _Você Foi Enforcado_**");
+			System.out.println("     | ___            **");
+			System.out.println("     |(-_-)           **");
+			System.out.println("     |--º             **");
+			System.out.println("       /|\\            **");
+			System.out.println("      / | \\           **");
+			System.out.println("     /  |  \\          **");
+			System.out.println("        |             **");
+			System.out.println("        |             **");
+			System.out.println("       / \\            **");
+			System.out.println("      /   \\           **");
+			System.out.println("     /     \\          **");
+			System.out.println("!!!!!!!Game Over!!!!!! <<< Você foi enforcado >>>");
+			  try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {e.printStackTrace();}
 			break;
 		case 1:
-			System.out.println("________________**");
-			System.out.println("    ___            **");
-			System.out.println("   (-_-)           **");
-			System.out.println("                   **");
-			System.out.println("   / | \\           **");
-			System.out.println("  /  |  \\          **");
-			System.out.println(" /   |   \\         **");
-			System.out.println("     |             **");
-			System.out.println("     |             **");
-			System.out.println("      \\            **");
-			System.out.println("       \\           **");
-			System.out.println("        \\          **");
-			System.out.println("                      ____Nada Bom .. Se Errar de Novo Já Era-Tent: 07");
+			System.out.println("	__________________**");
+			System.out.println("     	___            **");
+			System.out.println("       (-_-)           **");
+			System.out.println("                       **");
+			System.out.println("     	/|\\            **");
+			System.out.println("       / | \\           **");
+			System.out.println("      /  |  \\          **");
+			System.out.println("         |             **");
+			System.out.println("         |             **");
+			System.out.println("        / \\            **");
+			System.out.println("       /   \\           **");
+			System.out.println("      /     \\          **");
+			System.out.println("                      <<< ATENÇÃO !!Tentativa: 06 >>>");
 			break;
 		case 2:
-			System.out.println("________________**");
-			System.out.println("    ___            **");
-			System.out.println("   (-_-)           **");
-			System.out.println("                   **");
-			System.out.println("  /  | \\           **");
-			System.out.println(" /   |  \\          **");
-			System.out.println("/    |   \\         **");
-			System.out.println("     |             **");
-			System.out.println("     |             **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                      ____Nada Bom Ta Ficando Feio Negocío -Tent: 05");
+			System.out.println("	_________________**");
+			System.out.println("	    ___            **");
+			System.out.println("	   (-_-)           **");
+			System.out.println("	                   **");
+			System.out.println("	   / | \\           **");
+			System.out.println("	  /  |  \\          **");
+			System.out.println("	 /   |   \\         **");
+			System.out.println("	     |             **");
+			System.out.println("	     |             **");
+			System.out.println("	      \\            **");
+			System.out.println("	       \\           **");
+			System.out.println("	        \\          **");
+			System.out.println("                      ____Nada Bom .. Tentativa: 05");
 			break;
 		case 3:
-			System.out.println("________________**");
-			System.out.println("    ___            **");
-			System.out.println("   (-_-)           **");
-			System.out.println("                   **");
-			System.out.println("     | \\           **");
-			System.out.println("     |  \\          **");
-			System.out.println("     |   \\         **");
-			System.out.println("     |             **");
-			System.out.println("     |             **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                      ____Nada Bom Ta Ficando Feio Negocío -Tent: 06");
+			System.out.println("	_________________**");
+			System.out.println("	    ___            **");
+			System.out.println("	   (-_-)           **");
+			System.out.println("	                   **");
+			System.out.println("	   / | \\           **");
+			System.out.println("	  /  |  \\          **");
+			System.out.println("	 /   |   \\         **");
+			System.out.println("	     |             **");
+			System.out.println("	     |             **");
+			System.out.println("	                   **");
+			System.out.println("	                   **");
+			System.out.println("	                   **");
+			System.out.println("                      ____Nada Bom .. Tentativa: 04");
+			break;
+		case 4:
+			System.out.println("	_________________**");
+			System.out.println("	    ___            **");
+			System.out.println("	   (-_-)           **");
+			System.out.println("	                   **");
+			System.out.println("	     | \\           **");
+			System.out.println("	     |  \\          **");
+			System.out.println("	     |   \\         **");
+			System.out.println("	     |             **");
+			System.out.println("	     |             **");
+			System.out.println("	                   **");
+			System.out.println("	                   **");
+			System.out.println("	                   **");
+			System.out.println("	                  ____Nada Bom .. Tentativa: 03");
 			break;
 		
-		case 4:
-			System.out.println("________________**");
-			System.out.println("    ___            **");
-			System.out.println("   (-_-)           **");
-			System.out.println("                   **");
-			System.out.println("     |             **");
-			System.out.println("     |             **");
-			System.out.println("     |             **");
-			System.out.println("     |             **");
-			System.out.println("     |             **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                      ____Nada Bom esta Ai Ai AAii -Tent: 04");
-			break;
 		case 5:
-			System.out.println("________________**");
-			System.out.println("    ___            **");
-			System.out.println("   (-_-)           **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                   **");
-			System.out.println("                      ____Nada Bom esta Apertando-Tent: 03");
+			System.out.println("	_________________**");
+			System.out.println("	    ___            **");
+			System.out.println("	   (-_-)           **");
+			System.out.println("	                   **");
+			System.out.println("	     |             **");
+			System.out.println("	     |             **");
+			System.out.println("	     |             **");
+			System.out.println("	     |             **");
+			System.out.println("	     |             **");
+			System.out.println("	                   **");
+			System.out.println("	                   **");
+			System.out.println(" 	                  **");
+			System.out.println("                      ____Nada Bom .. Tentativa: 02");
 			break;
 		case 6:
-			System.out.println("________________**");
-			System.out.println("    ___           **");
-			System.out.println("   (- -)          **");
-			System.out.println("                  **");
-			System.out.println("                  **");
-			System.out.println("                  **");
-			System.out.println("                  **");
-			System.out.println("                  **");
-			System.out.println("                  **");
-			System.out.println("                  **");
-			System.out.println("                  **");
-			System.out.println("                  **");
-			System.out.println("                     ____Nada Bom esta Apertando-Tent: 02");
+			System.out.println("	_________________**");
+			System.out.println("	    ___            **");
+			System.out.println("	   (-_-)           **");
+			System.out.println("	                   **");
+			System.out.println("	                   **");
+			System.out.println("	                   **");
+			System.out.println("	                   **");
+			System.out.println("	                   **");
+			System.out.println("	                   **");
+			System.out.println("	                   **");
+			System.out.println("	                   **");
+			System.out.println("	                   **");
+			System.out.println("                      ____Nada Bom .. Tentativa: 01");
 			break;
-		case 7:
-			System.out.println("____________**");
-			System.out.println("                 **");
-			System.out.println("                 **");
-			System.out.println("                 **");
-			System.out.println("                 **");
-			System.out.println("                 **");
-			System.out.println("                 **");
-			System.out.println("                 **");
-			System.out.println("                 **");
-			System.out.println("                 **");
-			System.out.println("                 **");
-			System.out.println("                 **");
-			System.out.println("                 _____Nada bom Começou-Tent: 01");
 }}}
